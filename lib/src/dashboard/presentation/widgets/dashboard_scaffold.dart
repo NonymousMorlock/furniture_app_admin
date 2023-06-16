@@ -1,7 +1,5 @@
-import 'package:benaiah_admin_app/core/extensions/context_extensions.dart';
 import 'package:benaiah_admin_app/core/res/media_res.dart';
 import 'package:benaiah_admin_app/src/dashboard/presentation/app/dashboard_controller.dart';
-import 'package:benaiah_admin_app/src/dashboard/presentation/widgets/dash_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -30,7 +28,7 @@ class DashboardScaffold extends StatelessWidget {
               onPressed: () {},
               icon: Image.asset(MediaRes.menu, width: 24, height: 24),
             ),
-            actions: [],
+            actions: const [],
           ),
           body: controller.currentScreen,
         );

@@ -125,7 +125,7 @@ class ResponsiveRowColumn extends MultiChildRenderObjectWidget {
 
   @override
   void updateRenderObject(
-      BuildContext context, VerticallyWrapColumnsRenderObject renderObject) {
+      BuildContext context, VerticallyWrapColumnsRenderObject renderObject,) {
     renderObject
       ..spacing = spacing
       ..screenWidth = screenWidth;

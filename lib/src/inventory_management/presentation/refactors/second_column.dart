@@ -194,10 +194,13 @@ class _SecondColumnState extends State<SecondColumn> {
                   ),
                   onPressed: () async {
                     var selectedDate = DateTime.now();
+                    final now = DateTime.now();
                     final picked = await showDatePicker(
                       context: context,
                       initialDate: selectedDate,
-                      firstDate: DateTime(2015, 8),
+                      selectableDayPredicate: (date) => date.isAfter(
+                          DateTime.now().subtract(const Duration(days: 1)),),
+                      firstDate: DateTime(now.year, now.month, now.day),
                       lastDate: DateTime(2101),
                     );
                     if (picked != null && picked != selectedDate) {
@@ -207,7 +210,7 @@ class _SecondColumnState extends State<SecondColumn> {
                     } else {
                       return;
                     }
-                    if(!mounted) return;
+                    if (!mounted) return;
                     final pickedTime = await showTimePicker(
                       context: context,
                       initialTime: TimeOfDay.now(),
@@ -222,6 +225,8 @@ class _SecondColumnState extends State<SecondColumn> {
                           pickedTime.minute,
                         );
                       });
+                    } else {
+                      return;
                     }
                     debugPrint('selectedDate: $selectedDate');
                   },
@@ -241,8 +246,7 @@ class _SecondColumnState extends State<SecondColumn> {
                     ),
                   ),
                   onPressed: () {},
-                  child: const Text('Add '
-                      'Product'),
+                  child: const Text('Add Product'),
                 ),
               ],
             ),

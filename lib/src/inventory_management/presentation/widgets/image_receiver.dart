@@ -54,11 +54,20 @@ class ImageReceiver extends StatelessWidget {
                           ..onTap = controller.pickImages,
                         children: const [
                           TextSpan(
-                            text: 'or drag and drop',
+                            text: 'or drag and drop\n\n',
                             style: TextStyle(
                               decoration: TextDecoration.none,
                               color: Colors.grey,
                             ),
+                            children: [
+                              TextSpan(
+                                text: 'Max 5 images',
+                                style: TextStyle(
+                                  fontStyle: FontStyle.italic,
+                                  fontSize: 12,
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),

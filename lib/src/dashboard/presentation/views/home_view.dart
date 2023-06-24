@@ -2,7 +2,8 @@ import 'package:benaiah_admin_app/core/extensions/context_extensions.dart';
 import 'package:benaiah_admin_app/core/res/media_res.dart';
 import 'package:benaiah_admin_app/src/dashboard/presentation/app/dashboard_controller.dart';
 import 'package:benaiah_admin_app/src/dashboard/presentation/widgets/dash_tile.dart';
-import 'package:benaiah_admin_app/src/inventory_management/presentation/views/add_product_view.dart';
+import 'package:benaiah_admin_app/src/inventory_management/features/add_product/presentation/views/add_product_view.dart';
+import 'package:benaiah_admin_app/src/inventory_management/features/allocate_stock/presentation/views/allocate_stock_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -39,7 +40,7 @@ class HomeView extends StatelessWidget {
                 backgroundImage: MediaRes.order,
                 tileTitle: 'Allocate',
                 tileDescription: 'Handle Pending Orders & Stock',
-                onTap: () {},
+                onTap: () => controller.push(AllocateStockView.routeName),
               ),
               DashTile(
                 tileMedia: MediaRes.generateReport,

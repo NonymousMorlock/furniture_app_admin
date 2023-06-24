@@ -1,8 +1,8 @@
 import 'package:benaiah_admin_app/core/extensions/iterable_extensions.dart';
 import 'package:benaiah_admin_app/core/widgets/input_field.dart';
-import 'package:benaiah_admin_app/src/inventory_management/presentation/app/providers/category_controller.dart';
-import 'package:benaiah_admin_app/src/inventory_management/presentation/widgets/add_category_dialog.dart';
-import 'package:benaiah_admin_app/src/inventory_management/presentation/widgets/section.dart';
+import 'package:benaiah_admin_app/src/inventory_management/features/add_product/presentation/app/providers/category_controller.dart';
+import 'package:benaiah_admin_app/src/inventory_management/features/add_product/presentation/widgets/add_category_dialog.dart';
+import 'package:benaiah_admin_app/src/inventory_management/features/add_product/presentation/widgets/section.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';

@@ -1,5 +1,5 @@
-import 'package:benaiah_admin_app/src/inventory_management/presentation/refactors/first_column.dart';
-import 'package:benaiah_admin_app/src/inventory_management/presentation/refactors/second_column.dart';
+import 'package:benaiah_admin_app/src/inventory_management/features/add_product/presentation/refactors/first_column.dart';
+import 'package:benaiah_admin_app/src/inventory_management/features/add_product/presentation/refactors/second_column.dart';
 import 'package:flutter/material.dart';
 
 class AddProductView extends StatelessWidget {

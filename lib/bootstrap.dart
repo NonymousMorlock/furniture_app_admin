@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:benaiah_admin_app/core/services/injection_container.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/widgets.dart';
 import 'package:window_size/window_size.dart';
@@ -37,6 +38,7 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
   }
 
   // Add cross-flavor configuration here
+  await init();
 
   runApp(await builder());
 }

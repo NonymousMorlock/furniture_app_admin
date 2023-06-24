@@ -1,7 +1,7 @@
 import 'package:benaiah_admin_app/core/components/category.dart';
 import 'package:benaiah_admin_app/core/extensions/context_extensions.dart';
-import 'package:benaiah_admin_app/src/inventory_management/presentation/app/providers/category_controller.dart';
-import 'package:benaiah_admin_app/src/inventory_management/presentation/widgets/select_category_chip.dart';
+import 'package:benaiah_admin_app/src/inventory_management/features/add_product/presentation/app/providers/category_controller.dart';
+import 'package:benaiah_admin_app/src/inventory_management/features/add_product/presentation/widgets/select_category_chip.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

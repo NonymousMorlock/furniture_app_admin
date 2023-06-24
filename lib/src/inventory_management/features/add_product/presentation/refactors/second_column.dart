@@ -2,10 +2,10 @@ import 'package:benaiah_admin_app/core/components/decimal_formatter.dart';
 import 'package:benaiah_admin_app/core/extensions/iterable_extensions.dart';
 import 'package:benaiah_admin_app/core/widgets/input_field.dart';
 import 'package:benaiah_admin_app/src/dashboard/presentation/app/dashboard_controller.dart';
-import 'package:benaiah_admin_app/src/inventory_management/presentation/widgets/image_receiver.dart';
-import 'package:benaiah_admin_app/src/inventory_management/presentation/widgets/images.dart';
-import 'package:benaiah_admin_app/src/inventory_management/presentation/widgets/section.dart';
-import 'package:benaiah_admin_app/src/inventory_management/presentation/widgets/weight_unit_dropdown.dart';
+import 'package:benaiah_admin_app/src/inventory_management/features/add_product/presentation/widgets/image_receiver.dart';
+import 'package:benaiah_admin_app/src/inventory_management/features/add_product/presentation/widgets/images.dart';
+import 'package:benaiah_admin_app/src/inventory_management/features/add_product/presentation/widgets/section.dart';
+import 'package:benaiah_admin_app/src/inventory_management/features/add_product/presentation/widgets/weight_unit_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -118,7 +118,7 @@ class _SecondColumnState extends State<SecondColumn> {
               builder: (context) {
                 final prefixIcon = Container(
                   padding: const EdgeInsets.all(5),
-                  margin: const EdgeInsets.symmetric(horizontal: 10),
+                  margin: const EdgeInsets.symmetric(horizontal: 8),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5),
                     color: Colors.grey[300],

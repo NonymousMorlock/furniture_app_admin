@@ -1,5 +1,5 @@
 
-import 'package:benaiah_admin_app/src/inventory_management/presentation/app/providers/images_controller.dart';
+import 'package:benaiah_admin_app/src/inventory_management/features/add_product/presentation/app/providers/images_controller.dart';
 import 'package:desktop_drop/desktop_drop.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/gestures.dart';

@@ -1,4 +1,4 @@
-import 'package:benaiah_admin_app/src/inventory_management/presentation/app/providers/category_controller.dart';
+import 'package:benaiah_admin_app/src/inventory_management/features/add_product/presentation/app/providers/category_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

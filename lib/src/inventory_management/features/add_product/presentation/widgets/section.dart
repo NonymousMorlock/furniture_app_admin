@@ -3,14 +3,13 @@ import 'package:flutter/material.dart';
 
 class Section extends StatelessWidget {
   const Section({
-    required this.title,
-    required this.children,
+    required this.children, this.title,
     super.key,
     this.crossAxisAlignment,
     this.padding,
   });
 
-  final String title;
+  final String? title;
   final List<Widget> children;
   final CrossAxisAlignment? crossAxisAlignment;
   final EdgeInsetsGeometry? padding;
@@ -20,14 +19,15 @@ class Section extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          title,
-          style: const TextStyle(
-            fontWeight: FontWeight.w600,
-            fontSize: 20,
-            letterSpacing: 0.5,
+        if(title != null)
+          Text(
+            title!,
+            style: const TextStyle(
+              fontWeight: FontWeight.w600,
+              fontSize: 20,
+              letterSpacing: 0.5,
+            ),
           ),
-        ),
         const SizedBox(height: 10),
         BorderBox(
           padding: padding ?? const EdgeInsets.all(20),

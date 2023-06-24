@@ -20,6 +20,8 @@ class DashboardController extends ChangeNotifier {
     const RouteSettings(name: HomeView.routeName),
   ];
 
+  bool get canPop => _nestedStack.length > 1;
+
   Widget get currentScreen => generateRoute(_nestedStack.last);
 
   void push(String routeName, {Object? arguments}) {

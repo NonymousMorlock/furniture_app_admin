@@ -1,4 +1,5 @@
 import 'package:benaiah_admin_app/core/res/media_res.dart';
+import 'package:benaiah_admin_app/core/widgets/desktop_back_button.dart';
 import 'package:benaiah_admin_app/src/dashboard/presentation/app/dashboard_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -24,10 +25,7 @@ class DashboardScaffold extends StatelessWidget {
             toolbarHeight: 64,
             titleSpacing: 0,
             backgroundColor: Colors.white,
-            leading: IconButton(
-              onPressed: () {},
-              icon: Image.asset(MediaRes.menu, width: 24, height: 24),
-            ),
+            leading: const DesktopBackButton(),
             actions: const [],
           ),
           body: controller.currentScreen,

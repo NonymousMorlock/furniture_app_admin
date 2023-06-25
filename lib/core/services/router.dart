@@ -7,6 +7,7 @@ import 'package:benaiah_admin_app/src/inventory_management/features/allocate_sto
 import 'package:benaiah_admin_app/src/inventory_management/features/allocate_stock/presentation/app/providers/allocate_stock_provider.dart';
 import 'package:benaiah_admin_app/src/inventory_management/features/allocate_stock/presentation/views/allocate_stock_view.dart';
 import 'package:benaiah_admin_app/src/inventory_management/features/allocate_stock/presentation/views/fulfill_order_view.dart';
+import 'package:benaiah_admin_app/src/inventory_management/features/generate_report/presentation/views/stock_reports_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -29,6 +30,8 @@ Widget generateRoute(RouteSettings settings) {
         create: (_) => sl<AllocateStockProvider>(),
         child: FulfillOrderView(settings.arguments! as Order),
       );
+    case StockReportsView.routeName:
+      return const StockReportsView();
     default:
       return Center(child: Text('${settings.name} not found'));
   }

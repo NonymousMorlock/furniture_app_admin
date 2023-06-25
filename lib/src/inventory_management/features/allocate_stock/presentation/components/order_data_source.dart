@@ -1,12 +1,11 @@
 import 'package:benaiah_admin_app/core/enums/order_status_enum.dart';
+import 'package:benaiah_admin_app/core/extensions/context_extensions.dart';
 import 'package:benaiah_admin_app/core/extensions/custom_extensions.dart';
 import 'package:benaiah_admin_app/core/extensions/date_extensions.dart';
-import 'package:benaiah_admin_app/src/dashboard/presentation/app/dashboard_controller.dart';
 import 'package:benaiah_admin_app/src/inventory_management/features/allocate_stock/entities/order.dart';
 import 'package:benaiah_admin_app/src/inventory_management/features/allocate_stock/presentation/views/fulfill_order_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
@@ -44,17 +43,23 @@ class OrderDataSource extends DataGridSource {
               DataGridCell<Widget>(
                 columnName: 'status',
                 value: Chip(
-                  avatar: order.status == OrderStatus.processing ? Icon(
-                    Icons.circle,
-                    size: 12,
-                    color: order.status.colour,
-                  ).animate(
-                    onComplete: (controller) => controller.loop(),
-                  ).fadeIn().then().fadeOut() : Icon(
-                    Icons.circle,
-                    size: 12,
-                    color: order.status.colour,
-                  ),
+                  avatar: order.status == OrderStatus.processing
+                      ? Icon(
+                          Icons.circle,
+                          size: 12,
+                          color: order.status.colour,
+                        )
+                          .animate(
+                            onComplete: (controller) => controller.loop(),
+                          )
+                          .fadeIn()
+                          .then()
+                          .fadeOut()
+                      : Icon(
+                          Icons.circle,
+                          size: 12,
+                          color: order.status.colour,
+                        ),
                   shape: const StadiumBorder(),
                   label: Text(order.status.value),
                   backgroundColor: order.status.colourLight,
@@ -67,10 +72,10 @@ class OrderDataSource extends DataGridSource {
                     PopupMenuItem<void>(
                       child: const Text('View Order'),
                       onTap: () {
-                        context.read<DashboardController>().push(
-                              FulfillOrderView.routeName,
-                              arguments: order,
-                            );
+                        context.push(
+                          FulfillOrderView.routeName,
+                          arguments: order,
+                        );
                       },
                     ),
                   ],

@@ -4,6 +4,7 @@ import 'package:benaiah_admin_app/src/dashboard/presentation/app/dashboard_contr
 import 'package:benaiah_admin_app/src/dashboard/presentation/widgets/dash_tile.dart';
 import 'package:benaiah_admin_app/src/inventory_management/features/add_product/presentation/views/add_product_view.dart';
 import 'package:benaiah_admin_app/src/inventory_management/features/allocate_stock/presentation/views/allocate_stock_view.dart';
+import 'package:benaiah_admin_app/src/inventory_management/features/generate_report/presentation/views/stock_reports_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -47,7 +48,7 @@ class HomeView extends StatelessWidget {
                 backgroundImage: MediaRes.report,
                 tileTitle: 'Stock Reports',
                 tileDescription: 'Generate Stock Reports',
-                onTap: () {},
+                onTap: () => controller.push(StockReportsView.routeName),
               ),
             ],
           ),

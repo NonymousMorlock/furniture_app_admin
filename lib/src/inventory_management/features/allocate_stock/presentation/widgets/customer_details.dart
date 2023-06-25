@@ -1,12 +1,9 @@
 import 'package:benaiah_admin_app/core/extensions/iterable_extensions.dart';
 import 'package:benaiah_admin_app/src/inventory_management/features/add_product/presentation/widgets/section.dart';
-import 'package:benaiah_admin_app/src/inventory_management/features/allocate_stock/entities/customer.dart';
 import 'package:benaiah_admin_app/src/inventory_management/features/allocate_stock/entities/order.dart';
-import 'package:benaiah_admin_app/src/inventory_management/features/allocate_stock/presentation/app/providers/allocate_stock_provider.dart';
 import 'package:benaiah_admin_app/src/inventory_management/features/allocate_stock/presentation/widgets/column_pair.dart';
-import 'package:dartz/dartz.dart' hide Order, State;
+import 'package:benaiah_admin_app/src/inventory_management/features/allocate_stock/utils/allocate_stock_utils.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class CustomerDetails extends StatefulWidget {
   const CustomerDetails(this.order, {super.key});
@@ -20,7 +17,23 @@ class CustomerDetails extends StatefulWidget {
 class _CustomerDetailsState extends State<CustomerDetails> {
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<Either<String, Customer>>(
+    return Section(
+      title: 'Customer Details',
+      children: [
+        ColumnPair(top: 'Name', bottom: widget.order.customerName),
+        ColumnPair(top: 'Email', bottom: AllocateStockUtils.email),
+        ColumnPair(
+          top: 'Shipping address',
+          bottom: widget.order.deliveryAddress,
+        ),
+        const ColumnPair(
+          top: 'Billing address',
+          bottom: 'Same as shipping address',
+        ),
+        ColumnPair(top: 'Payment', bottom: widget.order.paymentMethod),
+      ].columnGap(20),
+    );
+    /*return FutureBuilder<Either<String, Customer>>(
       future: context.read<AllocateStockProvider>().getCustomerById(
             widget.order.customerId,
           ),
@@ -50,6 +63,6 @@ class _CustomerDetailsState extends State<CustomerDetails> {
           return const Center(child: CircularProgressIndicator());
         }
       },
-    );
+    );*/
   }
 }

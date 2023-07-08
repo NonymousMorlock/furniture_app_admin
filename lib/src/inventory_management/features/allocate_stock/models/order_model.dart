@@ -10,7 +10,6 @@ class OrderModel extends Order {
     required super.orderNumber,
     required super.customerName,
     required super.customerId,
-    required super.furnitureId,
     required super.deliveryAddress,
     required super.products,
     required super.status,
@@ -25,7 +24,6 @@ class OrderModel extends Order {
           orderNumber: '._empty_.',
           customerName: '._empty_.',
           customerId: '._empty_.',
-          furnitureId: '._empty_.',
           deliveryAddress: '._empty_.',
           products: [],
           status: OrderStatus.pending,
@@ -40,7 +38,6 @@ class OrderModel extends Order {
           orderNumber: map['orderNumber'] as String,
           customerName: map['customerName'] as String,
           customerId: map['customerId'] as String,
-          furnitureId: map['furnitureId'] as String,
           deliveryAddress: map['deliveryAddress'] as String,
           products: List<DataMap>.from(map['products'] as List<dynamic>)
               .map(OrderProductModel.fromMap)
@@ -62,7 +59,6 @@ class OrderModel extends Order {
     String? deliveryAddress,
     OrderStatus? status,
     String? customerId,
-    String? furnitureId,
     List<OrderProduct>? products,
     DateTime? createdAt,
     DateTime? updatedAt,
@@ -75,7 +71,6 @@ class OrderModel extends Order {
       deliveryAddress: deliveryAddress ?? this.deliveryAddress,
       status: status ?? this.status,
       customerId: customerId ?? this.customerId,
-      furnitureId: furnitureId ?? this.furnitureId,
       products: products ?? this.products,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
@@ -88,7 +83,6 @@ class OrderModel extends Order {
         'orderNumber': orderNumber,
         'customerName': customerName,
         'customerId': customerId,
-        'furnitureId': furnitureId,
         'deliveryAddress': deliveryAddress,
         'products': products
             .map((product) => (product as OrderProductModel).toMap())

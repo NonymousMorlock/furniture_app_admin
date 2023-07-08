@@ -12,6 +12,7 @@ class MediaRes {
   static const addProduct = '$_baseLottie/add_product.json';
   static const allocate = '$_baseLottie/allocate.json';
   static const generateReport = '$_baseLottie/generate_report.json';
+  static const emptyStore = '$_baseLottie/empty_store.json';
 
   // IMAGES
   static const inventory = '$_baseImages/inventory.png';

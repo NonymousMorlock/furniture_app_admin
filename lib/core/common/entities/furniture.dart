@@ -23,11 +23,17 @@ class Furniture extends Equatable {
     this.compareAtPrice,
   });
 
-  final String id;
+  @override
+  String toString() {
+    return 'Furniture{id: $id, name: $name, description: $description, categories: $categories, quantity: $quantity, SKU: $SKU, availability: $availability, images: $images, weight: $weight, weightUnit: $weightUnit, dimensions: $dimensions, price: $price, compareAtPrice: $compareAtPrice, createdAt: $createdAt, updatedAt: $updatedAt, availableAt: $availableAt}';
+  }
+
+  final int id;
   final String name;
   final String description;
   final List<String> categories;
   final int quantity;
+
   // ignore: non_constant_identifier_names
   final String? SKU;
   final Availability availability;

@@ -1,17 +1,26 @@
 enum DimensionsUnit {
-  inches,
-  cm,
-  m,
-  mm,
+  inches('in'),
+  cm('cm'),
+  m('m'),
+  mm('mm');
+
+  const DimensionsUnit(this.value);
+  final String value;
 }
 
 enum Availability {
-  inStore,
-  online,
-  inStoreAndOnline,
+  inStore('inStore'),
+  online('online'),
+  inStoreAndOnline('any');
+
+  const Availability(this.value);
+  final String value;
 }
 
 enum WeightUnit {
-  kg,
-  g,
+  kg('kg'),
+  g('g');
+
+  const WeightUnit(this.value);
+  final String value;
 }

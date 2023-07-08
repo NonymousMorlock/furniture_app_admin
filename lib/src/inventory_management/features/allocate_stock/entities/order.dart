@@ -9,7 +9,6 @@ class Order extends Equatable {
     required this.orderNumber,
     required this.customerName,
     required this.customerId,
-    required this.furnitureId,
     required this.deliveryAddress,
     required this.products,
     required this.status,
@@ -23,7 +22,6 @@ class Order extends Equatable {
     orderNumber: '._empty_.',
     customerName: '._empty_.',
     customerId: '._empty_.',
-    furnitureId: '._empty_.',
     deliveryAddress: '._empty_.',
     products: [],
     status: OrderStatus.pending,
@@ -38,7 +36,6 @@ class Order extends Equatable {
   final String deliveryAddress;
   final OrderStatus status;
   final String customerId;
-  final String furnitureId;
   final List<OrderProduct> products;
   final DateTime createdAt;
   final DateTime updatedAt;

@@ -1,4 +1,7 @@
+import 'package:benaiah_admin_app/core/extensions/enum_extensions.dart';
+import 'package:benaiah_admin_app/src/inventory_management/features/add_product/presentation/app/providers/add_product_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class WeightUnitDropdown extends StatelessWidget {
   const WeightUnitDropdown({
@@ -27,6 +30,7 @@ class WeightUnitDropdown extends StatelessWidget {
         ],
         onChanged: (value) {
           controller.text = value.toString();
+          context.read<AddProductController>().weightUnit = value!.weightUnit;
           focusNode.requestFocus();
         },
       ),

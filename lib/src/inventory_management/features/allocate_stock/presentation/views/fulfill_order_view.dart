@@ -3,8 +3,6 @@ import 'package:benaiah_admin_app/src/inventory_management/features/add_product/
 import 'package:benaiah_admin_app/src/inventory_management/features/allocate_stock/entities/order.dart';
 import 'package:benaiah_admin_app/src/inventory_management/features/allocate_stock/presentation/refactors/first_column.dart';
 import 'package:benaiah_admin_app/src/inventory_management/features/allocate_stock/presentation/refactors/second_column.dart';
-import 'package:benaiah_admin_app/src/inventory_management/features/allocate_stock/presentation/widgets/customer_details.dart';
-import 'package:benaiah_admin_app/src/inventory_management/features/allocate_stock/presentation/widgets/order_details_table.dart';
 import 'package:flutter/material.dart';
 
 class FulfillOrderView extends StatelessWidget {

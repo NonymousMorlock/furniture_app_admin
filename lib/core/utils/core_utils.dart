@@ -13,4 +13,15 @@ class CoreUtils {
       iconStyle: IconStyle.error,
     );
   }
+
+  static Future<void> showSuccessAlert({
+    required String message,
+  }) async {
+    await FlutterPlatformAlert.playAlertSound();
+    await FlutterPlatformAlert.showAlert(
+      windowTitle: 'Success',
+      text: message,
+      iconStyle: IconStyle.information,
+    );
+  }
 }

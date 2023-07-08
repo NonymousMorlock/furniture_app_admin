@@ -19,7 +19,7 @@ class AddCategoryDialog extends StatelessWidget {
             child: Container(
               constraints: BoxConstraints(
                 maxWidth: context.width * 0.5,
-                maxHeight: context.height * 0.5,
+                maxHeight: context.height * 0.8,
               ),
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(

@@ -1,47 +1,11 @@
+import 'dart:async';
+
+import 'package:benaiah_admin_app/core/common/entities/furniture.dart';
+import 'package:benaiah_admin_app/src/inventory_management/core/app/providers/product_provider.dart';
+import 'package:benaiah_admin_app/src/inventory_management/core/utils/inventory_utils.dart';
+import 'package:benaiah_admin_app/src/inventory_management/features/generate_report/presentation/widgets/stock_table.dart';
 import 'package:flutter/material.dart';
-
-class Stock {
-  final String id;
-  final String productName;
-  final String category;
-  final int quantity;
-  final double price;
-
-  Stock({
-    required this.id,
-    required this.productName,
-    required this.category,
-    required this.quantity,
-    required this.price,
-  });
-}
-
-List<Stock> generateDummyStocks() {
-  return [
-    Stock(
-      id: '1',
-      productName: 'Chair',
-      category: 'Furniture',
-      quantity: 10,
-      price: 99.99,
-    ),
-    Stock(
-      id: '2',
-      productName: 'Table',
-      category: 'Furniture',
-      quantity: 5,
-      price: 199.99,
-    ),
-    Stock(
-      id: '3',
-      productName: 'Lamp',
-      category: 'Lighting',
-      quantity: 8,
-      price: 49.99,
-    ),
-    // Add more dummy stocks as needed
-  ];
-}
+import 'package:provider/provider.dart';
 
 class StockReportsView extends StatefulWidget {
   const StockReportsView({super.key});
@@ -53,8 +17,10 @@ class StockReportsView extends StatefulWidget {
 }
 
 class _StockReportsViewState extends State<StockReportsView> {
-  List<Stock> stocks = generateDummyStocks();
-  List<Stock> filteredStocks = [];
+  List<Furniture> stocks = [];
+  List<Furniture> filteredStocks = [];
+
+  final Completer<List<Furniture>> _completer = Completer();
 
   TextEditingController searchController = TextEditingController();
   String selectedCategory = 'All';
@@ -63,29 +29,51 @@ class _StockReportsViewState extends State<StockReportsView> {
   @override
   void initState() {
     super.initState();
-    filteredStocks = stocks;
+    InventoryUtils.listen(context);
+    _completer.future.then((value) {
+      setState(() {
+        stocks = value;
+        filteredStocks = stocks;
+      });
+    });
+  }
+
+  List<String> getCategories() {
+    final categories = <String>['All'];
+    for (final stock in stocks) {
+      for (final category in stock.categories) {
+        if (!categories.contains(category)) {
+          categories.add(category);
+        }
+      }
+    }
+    return categories;
   }
 
   void filterStocks() {
     setState(() {
-      final searchTerm = searchController.text.toLowerCase();
+      final searchTerm = searchController.text.trim().toLowerCase();
       filteredStocks = stocks.where((stock) {
-        final productName = stock.productName.toLowerCase();
-        final category = stock.category.toLowerCase();
+        final productName = stock.name.toLowerCase();
+        final categories =
+            stock.categories.map((category) => category.toLowerCase()).toList();
         return productName.contains(searchTerm) ||
-            category.contains(searchTerm);
+            categories.any((category) => category.contains(searchTerm));
       }).toList();
 
       if (selectedCategory != 'All') {
-        filteredStocks = filteredStocks
-            .where((stock) => stock.category == selectedCategory)
-            .toList();
+        filteredStocks = filteredStocks.where((stock) {
+          final categories = stock.categories
+              .map((category) => category.toLowerCase())
+              .toList();
+          return categories.contains(selectedCategory.toLowerCase());
+        }).toList();
       }
 
       if (!sortAscending) {
-        filteredStocks.sort((a, b) => b.productName.compareTo(a.productName));
+        filteredStocks.sort((a, b) => b.name.compareTo(a.name));
       } else {
-        filteredStocks.sort((a, b) => a.productName.compareTo(b.productName));
+        filteredStocks.sort((a, b) => a.name.compareTo(b.name));
       }
     });
   }
@@ -101,86 +89,83 @@ class _StockReportsViewState extends State<StockReportsView> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        children: [
-          Row(
+    return FutureBuilder<List<Furniture>>(
+      future: context.read<ProductProvider>().getStocks(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData &&
+            snapshot.data != null &&
+            !_completer.isCompleted) {
+          _completer.complete(snapshot.data);
+        } else if (snapshot.hasError && !_completer.isCompleted) {
+          _completer.completeError(snapshot.error!);
+        }
+        return Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
             children: [
-              Expanded(
-                child: TextField(
-                  controller: searchController,
-                  decoration: InputDecoration(
-                    hintText: 'Search by product name or category',
-                    prefixIcon: const Icon(Icons.search),
-                    suffixIcon: IconButton(
-                      icon: const Icon(Icons.clear),
-                      onPressed: clearFilters,
+              Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      controller: searchController,
+                      decoration: InputDecoration(
+                        hintText: 'Search by product name or category',
+                        prefixIcon: const Icon(Icons.search),
+                        suffixIcon: IconButton(
+                          icon: const Icon(Icons.clear),
+                          onPressed: clearFilters,
+                        ),
+                      ),
+                      onChanged: (value) => filterStocks(),
                     ),
                   ),
-                  onChanged: (value) => filterStocks(),
-                ),
-              ),
-              const SizedBox(width: 16),
-              DropdownButton<String>(
-                value: selectedCategory,
-                items: const [
-                  DropdownMenuItem(
-                    value: 'All',
-                    child: Text('All Categories'),
+                  const SizedBox(width: 16),
+                  DropdownButton<String>(
+                    value: selectedCategory,
+                    items: getCategories().map((category) {
+                      return DropdownMenuItem(
+                        value: category,
+                        child: Text(
+                          category.toLowerCase() == 'all'
+                              ? 'All Categories'
+                              : category,
+                        ),
+                      );
+                    }).toList(),
+                    onChanged: (value) {
+                      setState(() {
+                        selectedCategory = value!;
+                        filterStocks();
+                      });
+                    },
                   ),
-                  DropdownMenuItem(
-                    value: 'Furniture',
-                    child: Text('Furniture'),
+                  const SizedBox(width: 16),
+                  IconButton(
+                    icon: Icon(
+                      sortAscending
+                          ? Icons.sort_by_alpha
+                          : Icons.sort_by_alpha_outlined,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        sortAscending = !sortAscending;
+                        filterStocks();
+                      });
+                    },
                   ),
-                  DropdownMenuItem(
-                    value: 'Lighting',
-                    child: Text('Lighting'),
-                  ),
-                  // Add more categories here
                 ],
-                onChanged: (value) {
-                  setState(() {
-                    selectedCategory = value!;
-                    filterStocks();
-                  });
-                },
               ),
-              const SizedBox(width: 16),
-              IconButton(
-                icon: Icon(
-                  sortAscending
-                      ? Icons.sort_by_alpha
-                      : Icons.sort_by_alpha_outlined,
+              const SizedBox(height: 16),
+              Expanded(
+                child: ListView(
+                  shrinkWrap: true,
+                  children: [StockTable(filteredStocks)],
                 ),
-                onPressed: () {
-                  setState(() {
-                    sortAscending = !sortAscending;
-                    filterStocks();
-                  });
-                },
               ),
             ],
           ),
-          const SizedBox(height: 16),
-          Expanded(
-            child: ListView.builder(
-              itemCount: filteredStocks.length,
-              itemBuilder: (context, index) {
-                final stock = filteredStocks[index];
-                return ListTile(
-                  title: Text(stock.productName),
-                  subtitle: Text(
-                    'Category: ${stock.category} | '
-                        'Quantity: ${stock.quantity} | '
-                        'Price: \$${stock.price}',
-                  ),
-                );
-              },
-            ),
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 }

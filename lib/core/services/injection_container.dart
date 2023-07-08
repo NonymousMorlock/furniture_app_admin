@@ -1,17 +1,22 @@
-import 'package:benaiah_admin_app/src/inventory_management/features/allocate_stock/controller/allocate_stock_controller.dart';
-import 'package:benaiah_admin_app/src/inventory_management/features/allocate_stock/presentation/app/providers/allocate_stock_provider.dart';
-import 'package:benaiah_admin_app/src/inventory_management/features/allocate_stock/repository/allocate_stock_repository.dart';
-import 'package:benaiah_admin_app/src/inventory_management/features/allocate_stock/utils/allocate_stock_dummy_database.dart';
+import 'package:benaiah_admin_app/src/inventory_management/core/app/providers/product_provider.dart';
+import 'package:benaiah_admin_app/src/inventory_management/core/controller/product_controller.dart';
+import 'package:benaiah_admin_app/src/inventory_management/core/repository/product_repository.dart';
+import 'package:furniture_store_server_client/furniture_store_server_client.dart';
 import 'package:get_it/get_it.dart';
-import 'package:http/http.dart' as http;
+import 'package:serverpod_flutter/serverpod_flutter.dart';
 
 final sl = GetIt.instance;
 
 Future<void> init() async {
+  await _initProduct();
+}
+
+Future<void> _initProduct() async {
+  final client = Client('http://localhost:8080/')
+    ..connectivityMonitor = FlutterConnectivityMonitor();
   sl
-    ..registerFactory(() => AllocateStockProvider(sl()))
-    ..registerLazySingleton(() => AllocateStockController(sl()))
-    ..registerLazySingleton(() => AllocateStockRepository(sl()))
-    ..registerLazySingleton(() => AllocateStockDummyDatabase(sl()))
-    ..registerLazySingleton<http.Client>(http.Client.new);
+    ..registerFactory(() => ProductProvider(sl()))
+    ..registerLazySingleton(() => ProductController(sl()))
+    ..registerLazySingleton(() => ProductRepository(sl()))
+    ..registerLazySingleton<Client>(() => client);
 }

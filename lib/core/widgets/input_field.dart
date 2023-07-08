@@ -20,11 +20,13 @@ class InputField extends StatelessWidget {
     this.prefixText,
     this.suffixText,
     this.focusNode,
+    this.validator,
   });
 
   final String label;
   final TextStyle? labelStyle;
   final TextEditingController? controller;
+  final String? Function(String?)? validator;
   final double? minWidth;
   final bool required;
   final String? hintText;
@@ -96,6 +98,7 @@ class InputField extends StatelessWidget {
               if (required && value!.isEmpty) {
                 return 'This field is required';
               }
+              if (validator != null) return validator!(value);
               return null;
             },
           ),

@@ -2,8 +2,8 @@
 import 'dart:convert';
 
 import 'package:benaiah_admin_app/core/utils/typedefs.dart';
-import 'package:benaiah_admin_app/src/inventory_management/features/allocate_stock/models/customer_model.dart';
 import 'package:benaiah_admin_app/src/inventory_management/features/allocate_stock/entities/customer.dart';
+import 'package:benaiah_admin_app/src/inventory_management/features/allocate_stock/models/customer_model.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../../../../../fixtures/fixture_reader.dart';

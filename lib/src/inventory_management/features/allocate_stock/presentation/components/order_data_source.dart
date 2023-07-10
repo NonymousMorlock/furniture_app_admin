@@ -70,7 +70,11 @@ class OrderDataSource extends DataGridSource {
                 value: PopupMenuButton(
                   itemBuilder: (context) => [
                     PopupMenuItem<void>(
-                      child: const Text('View Order'),
+                      child: Text(
+                        order.status == OrderStatus.pending
+                            ? 'Fulfill Order'
+                            : 'View Order',
+                      ),
                       onTap: () {
                         context.push(
                           FulfillOrderView.routeName,

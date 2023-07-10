@@ -11,7 +11,7 @@ extension OrderStatusExt on OrderStatus {
       case OrderStatus.processing:
         return const Color(0xFF2563EB);
       case OrderStatus.shipped:
-        return const Color(0xFF059669);
+        return const Color(0xFFFBBF24);
       case OrderStatus.delivered:
         return const Color(0xFF10B981);
       case OrderStatus.outForDelivery:
@@ -28,7 +28,7 @@ extension OrderStatusExt on OrderStatus {
       case OrderStatus.processing:
         return const Color(0xFFD1E3FE);
       case OrderStatus.shipped:
-        return const Color(0xFFD1FAE5);
+        return const Color(0xFFFFF3C4);
       case OrderStatus.delivered:
         return const Color(0xFFD1FAE5);
       case OrderStatus.outForDelivery:

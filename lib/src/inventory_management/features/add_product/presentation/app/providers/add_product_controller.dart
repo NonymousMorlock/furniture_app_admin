@@ -62,39 +62,40 @@ class AddProductController extends ChangeNotifier {
     notifyListeners();
   }
 
+  // Validator for the length field
   String? lengthValidator(String? value) {
     final lengthIsEmpty = value == null || value.isEmpty;
-    if(!lengthIsEmpty) return null;
-    if (
-        _productWidthController.text.trim().isNotEmpty ||
+    if (!lengthIsEmpty) return null;
+    if (_productWidthController.text.trim().isNotEmpty ||
         _productHeightController.text.trim().isNotEmpty) {
       return 'This field is required';
     }
     return null;
   }
 
+  // Validator for the width field
   String? widthValidator(String? value) {
     final widthIsEmpty = value == null || value.isEmpty;
-    if(!widthIsEmpty) return null;
-    if (
-        _productLengthController.text.trim().isNotEmpty ||
+    if (!widthIsEmpty) return null;
+    if (_productLengthController.text.trim().isNotEmpty ||
         _productHeightController.text.trim().isNotEmpty) {
       return 'This field is required';
     }
     return null;
   }
 
+  // Validator for the height field
   String? heightValidator(String? value) {
     final heightIsEmpty = value == null || value.isEmpty;
-    if(!heightIsEmpty) return null;
-    if (
-        _productLengthController.text.trim().isNotEmpty ||
+    if (!heightIsEmpty) return null;
+    if (_productLengthController.text.trim().isNotEmpty ||
         _productWidthController.text.trim().isNotEmpty) {
       return 'This field is required';
     }
     return null;
   }
 
+  // Create a FurnitureModel object based on the form inputs and configurations
   FurnitureModel furniture({
     required DateTime createdAt,
     required List<String> categories,
@@ -128,10 +129,13 @@ class AddProductController extends ChangeNotifier {
         availability: _availability,
       );
 
+  // Get the product dimensions based on the form inputs
   DimensionsModel? get productDimensions {
     if (_productLengthController.text.trim().isEmpty ||
         _productWidthController.text.trim().isEmpty ||
-        _productHeightController.text.trim().isEmpty) return null;
+        _productHeightController.text.trim().isEmpty) {
+      return null;
+    }
     return DimensionsModel(
       length: double.parse(_productLengthController.text.trim()),
       width: double.parse(_productWidthController.text.trim()),

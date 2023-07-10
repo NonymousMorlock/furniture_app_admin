@@ -4,10 +4,10 @@
   "orderNumber": "._empty_.",
   "customerName": "._empty_.",
   "customerId": "._empty_.",
-  "furnitureId": "._empty_.",
   "deliveryAddress": "._empty_.",
   "products": [],
   "status": "Pending",
   "createdAt": 1687187734940,
-  "updatedAt": 1687187734940
+  "updatedAt": 1687187734940,
+  "paymentMethod": "._empty_."
 }

@@ -44,10 +44,6 @@ class Protocol extends _i1.SerializationManager {
     if (t == _i1.getType<_i3.Response?>()) {
       return (data != null ? _i3.Response.fromJson(data, this) : null) as T;
     }
-    if (t == Map<String, dynamic>) {
-      return (data as Map).map((k, v) =>
-          MapEntry(deserialize<String>(k), deserialize<dynamic>(v))) as dynamic;
-    }
     return super.deserialize<T>(data, t);
   }
 

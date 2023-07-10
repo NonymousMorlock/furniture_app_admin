@@ -28,8 +28,7 @@ class DashboardView extends StatelessWidget {
                         indicatorColor: Colors.transparent,
                         indicatorShape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
-                          side:
-                              const BorderSide(color: Colors.white, width: 2),
+                          side: const BorderSide(color: Colors.white, width: 2),
                         ),
                         destinations: [
                           NavigationRailDestination(
@@ -76,7 +75,48 @@ class DashboardView extends StatelessWidget {
                           ),
                         ],
                         selectedIndex: controller.currentIndex,
-                        onDestinationSelected: controller.changeIndex,
+                        onDestinationSelected: (index) {
+                          controller.changeIndex(index);
+                          // show licence page with the name BENAIAH OKWUKWE
+                          // ANUKEM
+                          if (index == 2) {
+                            showAboutDialog(
+                              context: context,
+                              applicationName: 'BENAIAH OKWUKWE ANUKEM',
+                              applicationVersion: '1.0.0',
+                              applicationIcon: const Text(
+                                'ATHE',
+                                style: TextStyle(
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              children: [
+                                const Text(
+                                  'Benaiah Okwukwe Anukem is a student at '
+                                  'Central University College Ghana, '
+                                  'Miotso Campus.\n\nATHE Level 3 Diploma',
+                                ),
+                                const SizedBox(height: 10),
+                                const Text(
+                                  'Contact',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                const SizedBox(height: 10),
+                                const Text(
+                                  'Email: bennagams@gmail.com',
+                                ),
+                                const SizedBox(height: 10),
+                                const Text(
+                                  'Phone: +233 57 526 3359',
+                                ),
+                              ],
+                            );
+                          }
+                        },
                       ),
                     ),
                     Expanded(

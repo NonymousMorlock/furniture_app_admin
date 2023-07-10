@@ -20,5 +20,8 @@ extension ContextExt on BuildContext {
   void push(String routeName, {Object? arguments}) =>
       navigator.push(routeName, arguments: arguments);
 
+  void pushReplacement(String routeName, {Object? arguments}) =>
+      navigator.pushReplacement(routeName, arguments: arguments);
+
   void pop({Object? arguments}) => navigator.pop(arguments: arguments);
 }

@@ -1,4 +1,5 @@
 
+import 'package:benaiah_admin_app/core/extensions/double_extensions.dart';
 import 'package:benaiah_admin_app/core/extensions/iterable_extensions.dart';
 import 'package:benaiah_admin_app/src/inventory_management/features/add_product/presentation/widgets/section.dart';
 import 'package:benaiah_admin_app/src/inventory_management/features/allocate_stock/entities/order.dart';
@@ -33,7 +34,7 @@ class FirstColumn extends StatelessWidget {
                 ),
                 children: [
                   TextSpan(
-                    text: '₹${order.totalPrice}',
+                    text: order.totalPrice.currencyFormat,
                     style: const TextStyle(
                       color: Colors.green,
                     ),
@@ -42,17 +43,17 @@ class FirstColumn extends StatelessWidget {
               ),
             ),
             RichText(
-              text: const TextSpan(
+              text: TextSpan(
                 text: 'Paid: ',
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.w500,
                   fontSize: 20,
                 ),
                 children: [
                   TextSpan(
-                    text: '₹0',
-                    style: TextStyle(
+                    text: 0.0.currencyFormat,
+                    style: const TextStyle(
                       color: Colors.green,
                     ),
                   ),
@@ -69,7 +70,7 @@ class FirstColumn extends StatelessWidget {
                 ),
                 children: [
                   TextSpan(
-                    text: '₹${order.totalPrice}',
+                    text: order.totalPrice.currencyFormat,
                     style: const TextStyle(
                       color: Colors.red,
                     ),

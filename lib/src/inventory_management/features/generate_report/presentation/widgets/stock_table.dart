@@ -132,6 +132,14 @@ class _StockTableState extends State<StockTable> {
             rows: _filteredProducts
                 .map(
                   (product) => DataRow(
+                    // onLongPress: () {
+                    //   // random number with a minimum of 200
+                    //   final quantity = Random().nextInt(1000) + 200;
+                    //   context.read<ProductProvider>().updateProduct(
+                    //         (product as FurnitureModel)
+                    //             .copyWith(quantity: quantity),
+                    //       );
+                    // },
                     cells: [
                       DataCell(
                         Image.network(

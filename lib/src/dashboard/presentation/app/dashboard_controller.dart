@@ -39,6 +39,12 @@ class DashboardController extends ChangeNotifier {
     notifyListeners();
   }
 
+  void pushReplacement(String routeName, {Object? arguments}) {
+    _nestedStack..removeLast()
+    ..add(RouteSettings(name: routeName, arguments: arguments));
+    notifyListeners();
+  }
+
   void popUntil(String routeName, {Object? arguments}) {
     while (_nestedStack.last.name != routeName) {
       _nestedStack.removeLast();

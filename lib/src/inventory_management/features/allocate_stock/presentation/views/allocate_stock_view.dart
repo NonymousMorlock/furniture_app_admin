@@ -1,6 +1,8 @@
-import 'package:benaiah_admin_app/core/utils/dummy_data.dart';
+
+import 'package:benaiah_admin_app/src/inventory_management/features/allocate_stock/presentation/app/allocate_stock_provider.dart';
 import 'package:benaiah_admin_app/src/inventory_management/features/allocate_stock/presentation/components/order_data_source.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -19,9 +21,15 @@ class _AllocateStockViewState extends State<AllocateStockView>
 
   @override
   void initState() {
-    orderDataSource = OrderDataSource(orders: kOrders);
+    final provider = context.read<AllocateStockProvider>();
+    orderDataSource = OrderDataSource(orders: provider.orders);
     windowManager.addListener(this);
     super.initState();
+    provider.addListener(() {
+      orderDataSource = OrderDataSource(orders: provider.orders);
+      if(!mounted) return;
+      setState(() {});
+    });
   }
 
   @override
@@ -132,6 +140,7 @@ class _AllocateStockViewState extends State<AllocateStockView>
                         padding: EdgeInsets.all(10),
                         child: Text('Order Status'),
                       ),
+                      allowSorting: false,
                       columnWidthMode: ColumnWidthMode.fill,
                     ),
                     GridColumn(

@@ -1,8 +1,8 @@
 import 'package:benaiah_admin_app/core/extensions/iterable_extensions.dart';
+import 'package:benaiah_admin_app/core/extensions/string_extensions.dart';
 import 'package:benaiah_admin_app/src/inventory_management/features/add_product/presentation/widgets/section.dart';
 import 'package:benaiah_admin_app/src/inventory_management/features/allocate_stock/entities/order.dart';
 import 'package:benaiah_admin_app/src/inventory_management/features/allocate_stock/presentation/widgets/column_pair.dart';
-import 'package:benaiah_admin_app/src/inventory_management/features/allocate_stock/utils/allocate_stock_utils.dart';
 import 'package:flutter/material.dart';
 
 class CustomerDetails extends StatefulWidget {
@@ -21,7 +21,7 @@ class _CustomerDetailsState extends State<CustomerDetails> {
       title: 'Customer Details',
       children: [
         ColumnPair(top: 'Name', bottom: widget.order.customerName),
-        ColumnPair(top: 'Email', bottom: AllocateStockUtils.email),
+        ColumnPair(top: 'Email', bottom: widget.order.customerName.email),
         ColumnPair(
           top: 'Shipping address',
           bottom: widget.order.deliveryAddress,

@@ -6,7 +6,7 @@ class OrderProduct extends Equatable {
     required this.name,
     required this.quantity,
     required this.price,
-    required this.orderNumber,
+    this.orderNumber = '1',
   });
 
   const OrderProduct.empty()

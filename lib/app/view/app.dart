@@ -1,6 +1,7 @@
 import 'package:benaiah_admin_app/l10n/l10n.dart';
 import 'package:benaiah_admin_app/src/dashboard/presentation/app/dashboard_controller.dart';
 import 'package:benaiah_admin_app/src/dashboard/presentation/views/dashboard_view.dart';
+import 'package:benaiah_admin_app/src/inventory_management/features/allocate_stock/presentation/app/allocate_stock_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_framework/breakpoint.dart';
@@ -13,8 +14,11 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return TooltipVisibility(
       visible: false,
-      child: ChangeNotifierProvider(
-        create: (_) => DashboardController(),
+      child: MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => DashboardController()),
+          ChangeNotifierProvider(create: (_) => AllocateStockProvider()),
+        ],
         child: MaterialApp(
           theme: ThemeData(
             useMaterial3: true,

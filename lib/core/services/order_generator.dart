@@ -2,6 +2,72 @@
 
 import 'dart:math';
 
+import 'package:benaiah_admin_app/src/inventory_management/features/allocate_stock/entities/order_product.dart';
+import 'package:benaiah_admin_app/src/inventory_management/features/allocate_stock/models/order_product_model.dart';
+
+final List<OrderProduct> orderProducts = [
+  OrderProductModel(
+    productId: '1',
+    name: 'Foam Padded Chair',
+    quantity: 864,
+    price: 129.99,
+  ),
+  OrderProductModel(
+    productId: '2',
+    name: 'Glass Lamp',
+    quantity: 322,
+    price: 39.79,
+  ),
+  OrderProductModel(
+    productId: '3',
+    name: 'Glass Package',
+    quantity: 392,
+    price: 26.49,
+  ),
+  OrderProductModel(
+    productId: '4',
+    name: 'Plastic Chair',
+    quantity: 1112,
+    price: 63.0,
+  ),
+  OrderProductModel(
+    productId: '5',
+    name: 'Small Bookcase',
+    quantity: 802,
+    price: 34.99,
+  ),
+  OrderProductModel(
+    productId: '6',
+    name: 'Wooden Bookcase',
+    quantity: 409,
+    price: 61.78,
+  ),
+  OrderProductModel(
+    productId: '7',
+    name: 'Wooden Chair',
+    quantity: 416,
+    price: 114.46,
+  ),
+  OrderProductModel(
+    productId: '8',
+    name: 'Wooden Cupboard',
+    quantity: 224,
+    price: 99.99,
+  ),
+  OrderProductModel(
+    productId: '9',
+    name: 'Wooden Lamp',
+    quantity: 608,
+    price: 35.99,
+  ),
+  OrderProductModel(
+    productId: '10',
+    name: 'Wooden Table',
+    quantity: 519,
+    price: 159.99,
+  ),
+];
+
 enum GeneratorOrderStatus {
   pending,
   processing,
@@ -88,10 +154,12 @@ List<GeneratorOrder> generateOrders() {
 
     final productCount = random.nextInt(5) + 1;
     final orderNumber = _generateRandomOrderNumber();
-    final products = List<GeneratorOrderProduct>.generate(
-      productCount,
-      (_) => _generateRandomProduct(random, orderNumber: orderNumber),
-    );
+    // final products = List<GeneratorOrderProduct>.generate(
+    //   productCount,
+    //   (_) => _generateRandomProduct(random, orderNumber: orderNumber),
+    // );
+
+    final products = _generateRandomProducts(numberOfProducts: productCount);
 
     final order = GeneratorOrder(
       id: orderId,
@@ -112,30 +180,69 @@ List<GeneratorOrder> generateOrders() {
   return orders;
 }
 
-GeneratorOrderProduct _generateRandomProduct(
-  Random random, {
-  required String orderNumber,
+/// Fetches a random order from the list of [orderProducts].
+/// Using the selected orderProduct's [GeneratorOrderProduct.name],
+/// [GeneratorOrderProduct.quantity] and
+/// [GeneratorOrderProduct.price], and [GeneratorOrderProduct.productId],
+/// generates a random [GeneratorOrderProduct]. with a random
+/// [GeneratorOrderProduct.orderNumber].
+/// and does this a total of 50 times.
+/// This also takes into account the quantity of the selected orderProduct.
+/// and generates a random quantity between 1 and the selected orderProduct's
+/// quantity. but after each iteration, subtracts the generated quantity
+/// from the selected orderProduct's quantity.
+List<GeneratorOrderProduct> _generateRandomProducts({
+  required int numberOfProducts,
 }) {
-  final productIds = ['prod1', 'prod2', 'prod3', 'prod4', 'prod5'];
-  final productNames = [
-    'Product 1',
-    'Product 2',
-    'Product 3',
-    'Product 4',
-    'Product 5'
-  ];
-  final productId = productIds[random.nextInt(productIds.length)];
-  final name = productNames[random.nextInt(productNames.length)];
-  final quantity = random.nextInt(5) + 1;
-  final price = (random.nextInt(10) + 1) * 100.0;
+  final random = Random();
 
-  return GeneratorOrderProduct(
-    productId: productId,
-    name: name,
-    quantity: quantity,
-    orderNumber: '#$orderNumber',
-    price: price,
-  );
+  final products = <GeneratorOrderProduct>[];
+
+  final orderNumber = _generateRandomOrderNumber();
+
+  final usedProductIds = <String>[];
+
+  while (products.length < numberOfProducts/*&& usedProductIds.length < orderProducts.length*/) {
+    final orderProduct = orderProducts[random.nextInt(orderProducts.length)];
+    // max of 10
+    final quantity = random.nextInt(10) + 1;
+    final price = orderProduct.price;
+    final productId = orderProduct.productId;
+    final name = orderProduct.name;
+
+    if(usedProductIds.contains(productId)) continue;
+
+    products.add(
+      GeneratorOrderProduct(
+        productId: productId,
+        name: name,
+        quantity: quantity,
+        price: price,
+        orderNumber: orderNumber,
+      ),
+    );
+
+    final idx = orderProducts.indexOf(orderProduct);
+    orderProducts[idx] = (orderProduct as OrderProductModel)
+        .copyWith(quantity: orderProduct.quantity - quantity);
+
+    if (orderProducts[idx].quantity == 0) {
+      orderProducts.removeAt(idx);
+    }
+
+    usedProductIds.add(productId);
+  }
+
+  print('done');
+  return products;
+
+  // return GeneratorOrderProduct(
+  //   productId: productId,
+  //   name: name,
+  //   quantity: quantity,
+  //   orderNumber: '#$orderNumber',
+  //   price: price,
+  // );
 }
 
 String _generateRandomId() {

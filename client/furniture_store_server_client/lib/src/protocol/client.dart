@@ -73,7 +73,7 @@ class _EndpointProduct extends _i1.EndpointRef {
         {'id': id},
       );
 
-  _i2.Future<_i3.Response> updateProduct(Map<String, dynamic> body) =>
+  _i2.Future<_i3.Response> updateProduct(String body) =>
       caller.callServerEndpoint<_i3.Response>(
         'product',
         'updateProduct',

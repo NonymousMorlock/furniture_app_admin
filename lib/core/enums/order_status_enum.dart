@@ -1,9 +1,9 @@
 enum OrderStatus {
   pending('Pending'),
   processing('Processing'),
+  outForDelivery('Out for delivery'),
   shipped('Shipped'),
   delivered('Delivered'),
-  outForDelivery('Out for delivery'),
   cancelled('Cancelled');
 
   const OrderStatus(this.value);

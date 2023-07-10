@@ -8,7 +8,7 @@ class OrderProductModel extends OrderProduct {
     required super.name,
     required super.quantity,
     required super.price,
-    required super.orderNumber,
+    super.orderNumber,
   });
 
   const OrderProductModel.empty() : this(

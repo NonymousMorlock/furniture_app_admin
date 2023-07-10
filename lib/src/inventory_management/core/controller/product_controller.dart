@@ -10,6 +10,7 @@ class ProductController {
 
   final ProductRepository _repository;
 
+  // Add a product to the server
   ResultFuture<void> addProduct(FurnitureModel furniture) async {
     try {
       await _repository.addProduct(furniture);
@@ -18,7 +19,18 @@ class ProductController {
       return Left(ServerFailure(message: e.message, statusCode: e.statusCode));
     }
   }
+  
+  // Update a product on the server
+  ResultFuture<void> updateProduct(FurnitureModel furniture) async {
+    try {
+      await _repository.updateProduct(furniture);
+      return const Right(null);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.message, statusCode: e.statusCode));
+    }
+  }
 
+  // Get the list of all available stocks from the server
   ResultFuture<List<FurnitureModel>> getStocks() async {
     try {
       final stock = await _repository.getStocks();
@@ -28,6 +40,7 @@ class ProductController {
     }
   }
 
+  // Get a specific stock by its ID from the server
   ResultFuture<FurnitureModel> getStockById(int id) async {
     try {
       final stock = await _repository.getStockById(id);

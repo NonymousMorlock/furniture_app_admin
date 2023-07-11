@@ -15,8 +15,7 @@ class ProductRepository {
 
   // Add a product to the server
   Future<void> addProduct(FurnitureModel furniture) async {
-    try {
-      final imageURLs = <String>[];
+    try {      final imageURLs = <String>[];
 
       // Iterate over each image in the furniture's images list
       for (var i = 0; i < furniture.images.length; i++) {
@@ -140,8 +139,7 @@ class ProductRepository {
       debugPrint(s.toString());
       throw ServerException(message: e.message, statusCode: e.statusCode);
     } on ServerException {
-      debugPrint('_updateStock.ResponseException: ');
-      rethrow;
+      debugPrint('_updateStock.ResponseException: ');      rethrow;
     } catch (e, s) {
       debugPrint('_updateStock.DartException: ');
       debugPrint(s.toString());
